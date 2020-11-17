@@ -1,0 +1,55 @@
+<!-- <form class="formfield">
+    <mat-form-field class="example-full-width">
+        <mat-label>Favorite food</mat-label>
+        <input matInput placeholder="Ex. Pizza" value="Sushi">
+      </mat-form-field>
+    <mat-form-field>
+        <button mat-raised-button >Add</button>
+    </mat-form-field>
+</form> -->
+<br><br>
+<br><br>
+<div class="container">
+<form #template="ngForm" (ngSubmit)="registerUser(template.value)">
+    {{template.value | json}}
+    <div class="form-group">
+        <label>Name:</label>
+        <input type="text" #username="ngModel" placeholder="username" class="form-control" name="username"  [(ngModel)]="usermodel.username" pattern="[A-Za-z]{3,}"
+        [class.is-invalid]="username.invalid && username.touched"  required>
+        <!-- [class.is-invalid]="username.invalid && username.touched" -->
+        <!-- <small class="text-danger" [class.d-none]="username.valid || username.untouched"> name is required</small> -->
+        <div *ngIf="username.errors && (username.valid || username.touched) ">
+            <small class="text-danger" *ngIf="username.errors.required">username is required</small>
+            <small class="text-danger" *ngIf="username.errors.pattern">username contain only characters</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Age</label>
+        <input type="number" placeholder="age of the user" class="form-control" name="age" #age="ngModel" [(ngModel)]="usermodel.age"
+        [class.is-invalid]="age.invalid && age.touched" pattern="[2-5]{1}[0-9]{1}" required >
+        <!-- <small class="text-danger" [class.d-none]="age.valid || age.untouched"> age is required</small> -->
+        <div *ngIf="age.errors && (age.valid || age.touched)">
+            <small class="text-danger" *ngIf="age.errors.required">age is required</small>
+            <small class="text-danger" *ngIf="age.errors.pattern">age should between 20 to 60</small>
+            <!-- <small class="text-danger" *ngIf="age.errors.max">age should be less than 60</small> -->
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Email-Id</label>
+        <input type="email" placeholder="emailId of the user" #email="ngModel" required [(ngModel)]="usermodel.email"  class="form-control" name="email"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [class.is-invalid]="email.invalid && email.touched"  required>
+        <div *ngIf="email.errors && (email.valid || email.touched)">
+            <small class="text-danger" *ngIf="email.errors.required">email is required</small>
+            <small class="text-danger" *ngIf="email.errors.pattern">invalid email</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Gender:</label>&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" value="male"  [(ngModel)]="usermodel.gender" required ><label>male</label>&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" value="female"  [(ngModel)]="usermodel.gender" required><label>female</label>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!template.form.valid" >Add</button>
+    <button type="button" class="btn btn-primary" [disabled]="!template.form.valid" (click)="template.resetForm({})">Reset</button>
+</form>
+
+</div>

@@ -1,0 +1,16 @@
+<br><br>
+<div class="container">
+    <mat-toolbar color="primary" class="title" >
+        <h2>Update User</h2>
+    </mat-toolbar>
+    <form #templateForm="ngForm" (ngSubmit)="updateUser(templateForm.value)" >
+        {{templateForm.value | json}}
+        <div class="form-group">
+            <label>Id</label>
+            <input type="text" class="form-control" placeholder="enter user id" name="id" #id="ngModel"
+             [(ngModel)]="deleteuser.userid" required>
+            <small [class.d-none]="id.valid || id.untouched" class="text-danger">id is required</small>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!templateForm.form.valid">UPDATE</button>
+    </form>
+</div>
